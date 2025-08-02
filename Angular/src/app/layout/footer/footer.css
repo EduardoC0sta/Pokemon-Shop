@@ -1,0 +1,196 @@
+/* --- Container Principal do Rodapé --- */
+.site-footer {
+    background-color: #FFDE00;
+    border-top: 5px solid #3B4CCA;
+    padding: 40px 0 20px 0;
+    color: #333;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.site-footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+
+/* --- Seção Superior do Rodapé --- */
+.footer-main {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding-bottom: 30px;
+}
+
+.footer-column {
+    flex: 1;
+}
+
+.footer-column h5 {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    color: #3B4CCA;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul a {
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul a:hover {
+    color: #3B4CCA;
+    text-decoration: underline;
+}
+
+
+
+/* Ícones de Redes Sociais */
+.social-icons {
+    display: flex;
+    gap: 20px;
+    z-index: 2;
+}
+
+.social-icons a {
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #3B4CCA;
+}
+
+.social-icons svg {
+    width: 28px;
+    height: 28px;
+    fill: #000000;
+}
+
+
+
+/* --- Divisor --- */
+.footer-divider {
+    border: 1px solid #3B4CCA;
+    background-color: rgba(59, 76, 202, 0.3);
+    margin: 0;
+}
+
+
+
+/* --- Seção Inferior do Rodapé --- */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    gap: 20px;
+}
+
+.footer-copyright {
+    flex: 1.5;
+    font-size: 0.8rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.footer-copyright p {
+    margin: 0;
+    color: black;
+}
+
+.footer-legal-links {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.footer-legal-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.footer-legal-links a:hover {
+    color: #3B4CCA;
+    text-decoration: underline;
+}
+
+
+
+
+/* Botão "Voltar ao Topo" */
+.footer-back-to-top {
+    flex: 0.5;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer-back-to-top button {
+    background-color: #3B4CCA;
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.footer-back-to-top button:hover {
+    background-color: #2a3da5;
+}
+
+.footer-back-to-top svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .footer-main, .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .social-icons, .footer-legal-links, .footer-back-to-top {
+        justify-content: center;
+    }
+
+    .footer-copyright {
+      order: 3; /* Muda a ordem para o copyright ficar por último */
+      padding-top: 20px;
+    }
+
+    .footer-legal-links {
+      order: 2;
+    }
+    
+    .footer-back-to-top {
+      order: 1;
+      padding-bottom: 20px;
+    }
+}

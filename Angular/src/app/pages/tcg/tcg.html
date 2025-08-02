@@ -1,0 +1,79 @@
+<div class="container my-5">
+
+  <div class="row mb-4">
+    <div class="col-12"> </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <aside class="filter-sidebar">
+        <button class="filter-toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRegion"
+          aria-expanded="true">
+          FILTRAR POR <i class="bi bi-chevron-up"></i>
+        </button>
+
+        <div class="collapse show" id="collapseRegion">
+          <div class="filter-group">
+            <hr>
+            <h5 class="filter-group-header"> REGIÃO </h5>
+
+            <div class="selected-filters-container mb-3">
+              <div *ngFor="let filtro of opcoesDeFiltro">
+                <div *ngIf="filtro.selecionado" class="filter-tag" (click)="removerFiltro(filtro)">
+                  {{ filtro.nome }} <span class="remove-tag">&times;</span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngFor="let opcao of opcoesDeFiltro" class="form-check">
+              <input class="form-check-input region-filter" type="checkbox" [id]="'filter' + opcao.nome"
+                [(ngModel)]="opcao.selecionado" (ngModelChange)="aplicarFiltrosEOrdenacao()">
+              <label class="form-check-label" [for]="'filter' + opcao.nome">{{ opcao.nome }}</label>
+            </div>
+
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="col-lg-9">
+      <div class="d-flex justify-content-end align-items-center mb-3 sort-section">
+        <label for="sort-by" class="me-2">Selecionar por:</label>
+        <select class="form-select w-auto" id="sort-by" [(ngModel)]="ordenacaoAtual"
+          (ngModelChange)="aplicarFiltrosEOrdenacao()">
+          <option value="relevancia">Relevância</option>
+          <option value="price-asc">Preço mais baixo</option>
+          <option value="price-desc">Preço mais alto</option>
+        </select>
+      </div>
+      <hr class="mb-4">
+
+      <div class="row product-grid">
+        <div *ngIf="produtosExibidos.length === 0" class="col-12 text-center">
+          <p>Nenhuma carta encontrada com os filtros selecionados.</p>
+        </div>
+
+        <div *ngFor="let produto of produtosExibidos" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4 product-item">
+          <a [routerLink]="['/produto', produto.id]" class="product-link">
+            <div class="card product-card h-100">
+              <span *ngIf="produto.precoAntigo" class="sale-badge">OFERTA</span>
+              
+              <div class="product-image-wrapper">
+                <img [src]="produto.imagens[0]" class="card-img-top product-image-primary" [alt]="produto.nome">
+                <img *ngIf="produto.imagens[1]" [src]="produto.imagens[1]" class="card-img-top product-image-secondary" [alt]="produto.nome">
+              </div>
+
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ produto.nome }}</h5>
+                <div class="price-wrapper">
+                  <del *ngIf="produto.precoAntigo" class="text-muted">{{ produto.precoAntigo | currency:'BRL' }}</del>
+                  <p class="product-price fw-bold">{{ produto.preco | currency:'BRL' }}</p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
