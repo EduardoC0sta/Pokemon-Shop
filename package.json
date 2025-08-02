@@ -1,14 +1,14 @@
 {
   "name": "angular",
   "version": "0.0.0",
-"scripts": {
-  "ng": "cd Angular && ng",
-  "start": "cd Angular && ng serve",
-  "build": "cd Angular && ng build --configuration production",
-  "watch": "cd Angular && ng build --watch --configuration development",
-  "test": "cd Angular && ng test",
-  "serve:ssr:Angular": "node Angular/dist/Angular/server/server.mjs"
-},
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "npx ng build --configuration production",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "serve:ssr:Angular": "node dist/Angular/server/server.mjs"
+  },
   "prettier": {
     "overrides": [
       {
