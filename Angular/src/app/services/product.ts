@@ -2,16 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment'; // 1. ALTERAÇÃO AQUI: Importar o ambiente
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:3001';
+  // 2. ALTERAÇÃO AQUI: Usar a variável do ambiente
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   getTodosOsProdutos(): Observable<any[]> {
+    // As URLs já estão corretas por causa da alteração acima
     const pelucias$ = this.http.get<any[]>(`${this.apiUrl}/produtos/pelucias`);
     const tcg$ = this.http.get<any[]>(`${this.apiUrl}/produtos/tcg`);
 
@@ -21,6 +24,7 @@ export class ProductService {
   }
 
   getProdutoPorId(id: number): Observable<any> {
+    // A URL já está correta por causa da alteração acima
     return this.http.get(`${this.apiUrl}/produtos/${id}`);
   }
 }

@@ -3,11 +3,11 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
-
 export class AuthService {
-  private apiUrl = 'http://localhost:3001';
+  private apiUrl = environment.apiUrl;
   private usuarioLogadoSubject: BehaviorSubject<any | null>;
   public usuarioLogado$: Observable<any | null>;
 
@@ -21,10 +21,12 @@ export class AuthService {
   }
 
   cadastrar(dadosUsuario: any): Observable<any> {
+    // A URL já está correta por causa da alteração acima
     return this.http.post(`${this.apiUrl}/cadastro`, dadosUsuario);
   }
 
   login(credenciais: any): Observable<any> {
+    // A URL já está correta por causa da alteração acima
     return this.http.post<any>(`${this.apiUrl}/login`, credenciais).pipe(
       tap(response => this.salvarSessao(response))
     );
