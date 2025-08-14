@@ -1,23 +1,24 @@
-/* O header inteiro */
 header {
     background-color: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     border-bottom: 4px solid #3B4CCA;
 }
 
-/* --- Header Superior (única barra) --- */
+
+
+/* Header Superior */
 .header-top .container-fluid {
     display: flex;
-    justify-content: space-between; /* Espaça o logo, nav (invisível para flex) e user actions */
+    justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1.5rem;
     min-height: 80px;
-    position: relative; /* Essencial para o posicionamento absoluto da nav */
+    position: relative;
 }
 
 .navbar-brand {
-    flex-shrink: 0; /* Impede que o logo encolha */
-    z-index: 2; /* Garante que o logo fique acima da nav centralizada se houver sobreposição mínima */
+    flex-shrink: 0;
+    z-index: 2;
 }
 
 .navbar-brand img {
@@ -25,21 +26,24 @@ header {
     width: auto;
 }
 
+
+
+/* Links de Navegação Principal */
 .main-nav-links {
     display: flex;
     gap: 1rem;
-    position: absolute; /* Mantém o posicionamento absoluto para centralização */
+    position: absolute;
     left: 50%;
-    top: 50%; /* Centraliza verticalmente também */
-    transform: translate(-50%, -50%); /* Ajusta para centralizar com base no próprio tamanho */
-    z-index: 1; /* Garante que fique abaixo do logo e user-actions se houver sobreposição */
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 .main-nav-links .nav-link {
     color: #333;
     font-weight: 700;
     font-size: 1rem;
-    padding: 0.75rem 1.5rem;
+    padding: 10px;
     text-transform: uppercase;
     transition: color 0.3s ease;
     white-space: nowrap;
@@ -49,14 +53,27 @@ header {
     color: #3B4CCA;
 }
 
-/* Ações do Usuário (Login, Carrinho) */
+
+
+/* Wrapper para todas as ações do usuário */
+.header-actions-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Ações do Usuário (Login/Perfil) */
 .user-actions {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 1.5rem;
-    flex-shrink: 0; /* Impede que as ações encolham */
-    z-index: 2; /* Garante que as ações fiquem acima da nav centralizada */
+    gap: 1rem;
+}
+
+/* Ações sempre visíveis (Carrinho/Idioma) */
+.always-visible-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .user-action-link {
@@ -81,98 +98,70 @@ header {
     color: #3B4CCA;
 }
 
-/* Estilos do Dropdown de Login (mantidos) */
-.login-dropdown-menu {
-    min-width: 300px;
+.dropdown-menu {
+    right: 0;
+    left: auto;
 }
 
-.login-dropdown-menu .btn-primary,
-.login-dropdown-menu .btn-secondary {
-    background-color: #3B4CCA;
-    border-color: #3B4CCA;
-}
-
-.login-dropdown-menu .btn-primary:hover,
-.login-dropdown-menu .btn-secondary:hover {
-    background-color: #2a3c9a;
-    border-color: #2a3c9a;
-}
-
-
-/* Estilo para o botão de fechar (X) */
-.mobile-nav-header .btn-close {
-    background-color: #3B4CCA !important;
-    border-radius: 50%;
-    padding: 0.8rem;
-    opacity: 1;
-    color: white;
-}
-
-.mobile-nav-header .btn-close:hover {
-    background-color: #2a3c9a !important;
-}
 
 
 /* Responsividade */
-
-/* Para telas entre 940px e 781px */
-@media (max-width: 940px) {
-    /* Diminui o espaçamento e padding dos links para evitar sobreposição mais cedo */
-    .main-nav-links {
-        gap: 0.5rem;
-    }
+/* 990px */
+@media (max-width: 990px) {
     .main-nav-links .nav-link {
         padding: 0.75rem 0.8rem;
         font-size: 0.9rem;
     }
-
-    /* Reduz o gap e tamanho de fonte/ícone das ações do usuário */
-    .user-actions {
-        gap: 0.8rem;
+    .user-actions, .always-visible-actions, .header-actions-wrapper {
+        gap: 0.75rem;
     }
     .user-action-link {
         font-size: 0.8rem;
     }
-    .user-action-link i {
-        font-size: 1.3rem;
-    }
-
-    /* Ajusta o padding do container-fluid para evitar sobreposição
-       O ideal é ter um padding lateral que garanta que o logo e user-actions
-       nunca se encostem na navegação centralizada */
     .header-top .container-fluid {
-        padding: 0.5rem 1rem; /* Pode precisar ajustar este valor */
+        padding: 0.5rem 1rem;
     }
 }
 
-/* Para telas menores ou iguais a 780px (mobile) */
+/* 780px */
 @media (max-width: 780px) {
     .header-top .container-fluid {
-        justify-content: center; /* Centraliza o logo quando a nav principal está oculta */
-        position: relative; /* Mantém relative para o toggler */
-        padding: 0.5rem 1.5rem; /* Reseta o padding se necessário */
+        justify-content: space-between;
     }
 
-    /* Esconde a navegação principal e ações do usuário no mobile */
+    .navbar-brand {
+        margin-left: 0;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* Esconde a navegação principal e as ações de login/perfil */
     .main-nav-links,
     .user-actions {
-        display: none; /* Esconde os elementos desktop */
+        display: none !important;
     }
 
+    /* Garante que os ícones de carrinho/idioma fiquem visíveis */
+    .always-visible-actions {
+        display: flex !important;
+    }
+    .header-actions-wrapper {
+        display: flex !important;
+    }
+
+    /* Estilo do botão do menu hambúrguer */
     .navbar-toggler {
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
+        display: block;
         border: none;
         font-size: 1.8rem;
         color: #333;
     }
-
     .navbar-toggler:focus {
         box-shadow: none;
     }
 
+    /* PAINEL DO MENU MOBILE */
     .navbar-collapse {
         position: fixed;
         top: 0;
@@ -182,11 +171,12 @@ header {
         height: 100vh;
         background-color: white;
         z-index: 1055;
-        padding: 1.5rem;
+        padding: 1rem 0;
         box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
         transform: translateX(-100%);
         transition: transform 0.3s ease-in-out;
         display: block !important;
+        overflow-y: auto;
     }
 
     .navbar-collapse.show {
@@ -197,23 +187,57 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 0.5rem 1.5rem;
+        margin-bottom: 0.5rem;
     }
 
     .mobile-nav-header .user-action-link {
-        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: #333;
         font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .mobile-nav-header .btn-close {
+        padding: 0.5rem;
+    }
+
+    .navbar-collapse > hr {
+        margin: 0;
+        border: none;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .mobile-nav-links {
+        padding: 0;
     }
 
     .mobile-nav-links .nav-link {
-        display: block;
-        padding: 1rem 0;
-        font-size: 1.1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
+        font-size: 1rem;
         font-weight: 700;
-        border-bottom: 1px solid #f0f0f0;
-        color: #333;
+        border-bottom: 1px solid #e9ecef;
+        color: #212529;
+        text-decoration: none;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .mobile-nav-links .nav-link:hover {
+        background-color: #f8f9fa;
     }
 
     .mobile-nav-links .nav-link:last-child {
         border-bottom: none;
+    }
+
+    .mobile-nav-links .nav-link i.bi-chevron-right {
+        color: #888;
+        font-size: 1rem;
     }
 }

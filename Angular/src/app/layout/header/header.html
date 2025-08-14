@@ -1,94 +1,134 @@
-<header class="sticky-top">
+<header class="sticky-top" *transloco="let t; read: 'header'">
+
   <div class="header-top">
+
     <div class="container-fluid">
 
-      <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNavContent" aria-controls="mobileNavContent" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- Botão Hamburguer -->
+      <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse"
+        data-bs-target="#mobileNavContent" aria-controls="mobileNavContent" aria-expanded="false"
+        aria-label="Toggle navigation">
         <i class="bi bi-list"></i>
       </button>
 
+      <!-- Logo -->
       <a class="navbar-brand" routerLink="/home">
         <img src="img/logo-loja-pokemon.png" alt="Pokémon Shop Logo">
       </a>
 
+      <!-- Links Gerais -->
       <nav class="main-nav-links d-none d-md-flex">
-        <a class="nav-link" routerLink="/home">Home</a>
-        <a class="nav-link" routerLink="/pelucia">Pelúcias</a>
-        <a class="nav-link" routerLink="/tcg">Cartas TCG</a>
+        <a class="nav-link" routerLink="/home">{{ t('navHome') }}</a>
+        <a class="nav-link" routerLink="/pelucia">{{ t('navPlushies') }}</a>
+        <a class="nav-link" routerLink="/tcg">{{ t('navTcg') }}</a>
       </nav>
 
-      <div class="user-actions d-none d-md-flex">
-        <div *ngIf="!(isLoggedIn$ | async)" class="dropdown">
-          <a class="user-action-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-circle"></i>
-            <span>Login / Registrar</span>
-          </a>
-          <div class="dropdown-menu p-4 login-dropdown-menu" data-bs-auto-close="outside">
-            <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-              <div class="mb-3">
-                <label for="dropdownEmail" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="dropdownEmail" formControlName="email" [ngClass]="{ 'is-invalid': loginSubmitted && lf['email'].errors }">
-                <div *ngIf="loginSubmitted && lf['email'].errors" class="invalid-feedback d-block">
-                  <div *ngIf="lf['email'].errors['required']">Email é obrigatório.</div>
-                  <div *ngIf="lf['email'].errors['email']">Email inválido.</div>
+      <!-- Ações do Usuário -->
+      <div class="header-actions-wrapper">
+        <div class="user-actions">
+          <div *ngIf="!(isLoggedIn$ | async)" class="dropdown">
+            <a class="user-action-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle"></i>
+              <span class="d-none d-lg-inline">{{ t('loginRegister') }}</span>
+            </a>
+            <div class="dropdown-menu p-4 login-dropdown-menu dropdown-menu-end" data-bs-auto-close="outside">
+              <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+                <div class="mb-3">
+                  <label for="dropdownEmail" class="form-label">{{ t('emailLabel') }}</label>
+                  <input type="email" class="form-control" id="dropdownEmail" formControlName="email"
+                    [ngClass]="{ 'is-invalid': loginSubmitted && lf['email'].errors }">
                 </div>
-              </div>
-              <div class="mb-3">
-                <label for="dropdownPassword" class="form-label">Senha:</label>
-                <input type="password" class="form-control" id="dropdownPassword" formControlName="senha" [ngClass]="{ 'is-invalid': loginSubmitted && lf['senha'].errors }">
-                <div *ngIf="loginSubmitted && lf['senha'].errors" class="invalid-feedback d-block">
-                  <div *ngIf="lf['senha'].errors['required']">Senha é obrigatória.</div>
+                <div class="mb-3">
+                  <label for="dropdownPassword" class="form-label">{{ t('passwordLabel') }}</label>
+                  <input type="password" class="form-control" id="dropdownPassword" formControlName="senha"
+                    [ngClass]="{ 'is-invalid': loginSubmitted && lf['senha'].errors }">
                 </div>
-              </div>
-              <button type="submit" class="btn btn-primary w-100">Logar</button>
-            </form>
-            <hr class="dropdown-divider">
-            <p style="text-align: center;"> Não possui uma conta? </p>
-            <a class="btn btn-secondary w-100" routerLink="/cadastro">Cadastrar</a>
+                <button type="submit" class="btn btn-primary w-100">{{ t('loginButton') }}</button>
+              </form>
+              <hr class="dropdown-divider">
+              <p style="text-align: center;">{{ t('noAccount') }}</p>
+              <a class="btn btn-secondary w-100" routerLink="/cadastro">{{ t('registerButton') }}</a>
+            </div>
+          </div>
+
+          <!-- Conta usuário -->
+          <div *ngIf="isLoggedIn$ | async" class="dropdown">
+            <a class="user-action-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-fill"></i>
+              <span class="d-none d-lg-inline">{{ usuario?.nome }} <span
+                  *ngIf="usuario?.role === 'admin'">(Admin)</span></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a class="dropdown-item" routerLink="/pagina-usuario">{{ t('myAccount') }}</a>
+              <a *ngIf="usuario?.role === 'admin'" class="dropdown-item" routerLink="/dashboard">{{ t('dashboard')
+                }}</a>
+              <hr class="dropdown-divider">
+              <a class="dropdown-item" (click)="logout()" style="cursor: pointer;">{{ t('logout') }}</a>
+            </div>
           </div>
         </div>
-        <div *ngIf="isLoggedIn$ | async" class="dropdown">
-          <a class="user-action-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-fill"></i>
-            <span>Olá, {{ usuario?.nome }} <span *ngIf="usuario?.role === 'admin'">(Admin)</span></span>
+
+        <!-- Carrinho -->
+        <div class="always-visible-actions">
+          <a routerLink="/carrinho" class="user-action-link">
+            <i class="bi bi-cart3"></i>
+            <span class="d-none d-lg-inline">{{ t('cart') }}</span>
           </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" routerLink="/perfil">Minha Conta</a>
-            <a *ngIf="usuario?.role === 'admin'" class="dropdown-item" routerLink="/dashboard">Dashboard</a>
-            <hr class="dropdown-divider">
-            <a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Sair</a>
+
+          <!-- Alterar Lingua -->
+          <div class="dropdown language-switcher">
+            <a class="user-action-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-globe"></i>
+              <span class="d-none d-lg-inline">{{ idiomaAtivo.toUpperCase() }}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a class="dropdown-item" (click)="mudarIdioma('pt')">{{ t('langPortuguese') }}</a>
+              <a class="dropdown-item" (click)="mudarIdioma('en')">{{ t('langEnglish') }}</a>
+            </div>
           </div>
         </div>
-        <a routerLink="/carrinho" class="user-action-link">
-          <i class="bi bi-cart3"></i>
-          <span>Carrinho</span>
-        </a>
       </div>
 
       <div class="collapse navbar-collapse" id="mobileNavContent">
         <div class="mobile-nav-header">
-            <div *ngIf="!(isLoggedIn$ | async)">
-                <a class="user-action-link" routerLink="/cadastro">
-                    <i class="bi bi-person-circle"></i>
-                    <span>Login / Registrar</span>
-                </a>
-            </div>
-            <div *ngIf="isLoggedIn$ | async">
-                <a class="user-action-link" routerLink="/perfil">
-                    <i class="bi bi-person-fill"></i>
-                    <span>Olá, {{ usuario?.nome }}</span>
-                </a>
-            </div>
-            <button type="button" class="btn-close" data-bs-toggle="collapse" data-bs-target="#mobileNavContent" aria-label="Close"></button>
+          <div *ngIf="!(isLoggedIn$ | async)">
+            <a class="user-action-link" routerLink="/cadastro">
+              <i class="bi bi-person-circle"></i>
+              <span>{{ t('loginRegister') }}</span>
+            </a>
+          </div>
+          <div *ngIf="isLoggedIn$ | async">
+            <a class="user-action-link" routerLink="/pagina-usuario">
+              <i class="bi bi-person-fill"></i>
+              <span>{{ t('helloUser') }} {{ usuario?.nome }}</span>
+            </a>
+          </div>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeMobileMenu($event)"></button>
         </div>
-        <hr>
         <div class="mobile-nav-links">
-            <a class="nav-link" routerLink="/home">Home</a>
-            <a class="nav-link" routerLink="/pelucia">Pelúcias</a>
-            <a class="nav-link" routerLink="/tcg">Cartas TCG</a>
-            <a class="nav-link" routerLink="/carrinho">Carrinho</a>
-             <a *ngIf="isLoggedIn$ | async" class="nav-link" (click)="logout()" style="cursor: pointer;">Sair</a>
+          <a class="nav-link" routerLink="/cadastro">
+            <span>{{ t('login') }}</span>
+            <i class="bi bi-chevron-right"></i>
+          </a>
+          <a *ngIf="isLoggedIn$ | async" class="nav-link" (click)="logout()" style="cursor: pointer;">
+            <span>{{ t('logout')}}</span>
+            <i class="bi bi-chevron-right"></i>
+          </a>
+          <a class="nav-link" routerLink="/home">
+            <span>{{ t('navHome') }}</span>
+            <i class="bi bi-chevron-right"></i>
+          </a>
+          <a class="nav-link" routerLink="/pelucia">
+            <span>{{ t('navPlushies') }}</span>
+            <i class="bi bi-chevron-right"></i>
+          </a>
+          <a class="nav-link" routerLink="/tcg">
+            <span>{{ t('navTcg') }}</span>
+            <i class="bi bi-chevron-right"></i>
+          </a>
         </div>
       </div>
+
     </div>
   </div>
 </header>

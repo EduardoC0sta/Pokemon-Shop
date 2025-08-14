@@ -9,18 +9,17 @@ import { authGuard } from './guards/auth-guard';
 import { DashboardLayout } from './layout/dashboard-layout/dashboard-layout';
 import { Produto } from './pages/produto/produto';
 
+// Este array contém APENAS as definições de rota.
 export const routes: Routes = [
     // Rotas com layout padrão (sticky)
     { path: 'home', component: Home },
     { path: 'pelucia', component: Pelucia },
     { path: 'tcg', component: Tcg },
     { path: 'produto/:id', component: Produto },
+    { path: 'carrinho', component: Carrinho},
+    { path: 'cadastro', component: Cadastro},
 
-    // Rotas com o layout SIMPLES (header não-fixo)
-    { path: 'carrinho', component: Carrinho, data: { layout: 'simple' } },
-    { path: 'cadastro', component: Cadastro, data: { layout: 'simple' } },
-
-    // Rota do DASHBOARD (Protegida e com layout próprio)
+    // Rota do DASHBOARD (layout próprio)
     {
         path: 'dashboard',
         component: DashboardLayout,

@@ -184,6 +184,8 @@ body {
     margin-top: 15px;
 }
 
+
+
 /* RESPONSIVIDADE */
 /*  920px */
 @media (max-width: 920px) {
@@ -203,7 +205,6 @@ body {
         padding: 1.5rem 1rem;
     }
 }
-
 
 /* 780px */
 @media (max-width: 780px) {
@@ -232,7 +233,6 @@ body {
         margin-bottom: 1.5rem;
     }
 }
-
 
 /* 560px */
 @media (max-width: 560px) {
@@ -268,7 +268,6 @@ body {
     }
 }
 
-
 /* 400px */
 @media (max-width: 400px) {
     .hero-section {
@@ -276,7 +275,7 @@ body {
     }
 
     .hero-title {
-        font-size: 2rem;
+        font-size: 1rem;
     }
 
     .section-title {

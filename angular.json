@@ -25,7 +25,8 @@
                 "glob": "**/*",
                 "input": "Angular/public",
                 "output": "/"
-              }
+              },
+              "Angular/src/assets"
             ],
             "styles": [
               "Angular/src/styles.css"
@@ -51,7 +52,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "Angular/src/environments/environment.ts",
+                  "with": "Angular/src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"

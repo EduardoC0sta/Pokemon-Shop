@@ -14,10 +14,10 @@ const db = {
     // --- Dados de Usuários com a propriedade "role" ---
     usuarios: [
         {
-            id: 1, nome: "Admin User", email: "a@email.com", senha: "123456", role: "admin"
+            id: 1, nome: "Admin", email: "a@email.com", senha: "123456", role: "admin"
         },
         {
-            id: 2, nome: "Cliente Teste", email: "c@email.com", senha: "123456", role: "cliente"
+            id: 2, nome: "Cliente", email: "c@email.com", senha: "123456", role: "cliente"
         }
     ],
     
